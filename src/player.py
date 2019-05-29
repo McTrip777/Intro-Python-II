@@ -2,8 +2,12 @@
 # currently.
 
 class Player:
-    def __init__(self, current_room):
+    def __init__(self, current_room, equipment):
         self.current_room = current_room
+        self.equipment = equipment
 
     def __repr__(self):
         return f"Player is in {self.current_room}"
+
+    def set_current_room(self, new_room):
+        self.current_room = new_room
