@@ -1,41 +1,32 @@
 from room import Room
 from player import Player
-from equip import Equip
 # Declare all the rooms
 
-equip = {
-    'key': Equip("Key", "Not sure what this opens"),
-    'torch': Equip("Torch", "Now I just need to light this"),
-    'match': Equip("Match", "I don't think a match will be bright enough"),
-    'skeleton': Equip("Skeleton Bone", "I wonder how this guy died"),
-    'knife': Equip("Knife", "Never know when this will come in handy"),
-    'rope': Equip("Rope", "This could be useful"),
-    'glasses': Equip("Glasses", "Without these you can hardly see"),
-}
+# equip = {'skeleton''knife''rope''glasses'}
 
 room = {
-    'outside':  Room("Outside Cave Entrance", "North of you, the cave mount beckons"),
+    'outside':  Room("Outside Cave Entrance", "North of you, the cave mount beckons", 'rock'),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""",'match'),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""",'key'),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""",'rope'),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it appears to be empty."""),
+chamber! Sadly, it appears to be empty.""",'skeleton'),
 
     'stairway': Room("Dark Stair Case", """You've found a stair case, 
-looks like the only way to go is north!"""),
+looks like the only way to go is north!""",'knife'),
 
-    'secretroom': Room("Secret Room", """This room is completely empty, why is it even here?"""),
+    'secretroom': Room("Secret Room", """This room is completely empty, why is it even here?""",'glasses'),
 
     'realtreasureroom': Room("Secret Treasure Chamber", """You've found the long-lost treasure
-chamber! Enough gold to last you 1,000 life times. You're a true explorer!!!""")
+chamber! Enough gold to last you 1,000 life times. You're a true explorer!!!""",'torch')
 }
 
 
@@ -55,8 +46,7 @@ room['stairway'].n_to = room['secretroom']
 room['secretroom'].s_to = room['stairway']
 room['secretroom'].k_to = room['realtreasureroom']
 
-player = Player(room['outside'], equip['glasses'])
-
+player = Player(room['outside'])
 
 def direction_successful(direction, current_room):
     attribute = direction + "_to"
@@ -72,7 +62,7 @@ def direction_successful(direction, current_room):
 while True:
     print(player.current_room.name)
     print(player.current_room.description)
-    print(player.equipment)
+    print(player.current_room.equipment)
 
     player_input = input("\n>").lower().split()
     
