@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -24,13 +25,13 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
+room['outside'].w_to = room['foyer']
 room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
+room['foyer'].w_to = room['overlook']
+room['foyer'].d_to = room['narrow']
 room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
+room['narrow'].a_to = room['foyer']
+room['narrow'].w_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
 #
@@ -38,9 +39,25 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
+player = Player("Jake", room['outside'])
+print(player.current_room)
 # Write a loop that:
-#
+while True:
+    player_input = input("\n>").lower().split(' ')
+    if player_input[0] == 'q':
+        break
+    elif player_input[0] in ['w','s', 'd', 'a']:
+        player.travel(player_input[0])
+    elif len(player_input) > 0:
+        print(player_input[1])
+        for item in player.current_room.item:
+            if player_input[1] == item.name:
+                player.inventory.append(item)
+                print(player.inventory)
+            else:
+                pass
+    else:
+        print("I didn't understand that command")
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
